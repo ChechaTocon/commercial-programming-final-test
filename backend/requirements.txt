@@ -1,0 +1,4 @@
+Django==3.1.4
+graphene_django==2.13.0
+django-filter==2.4.0
+mysqlclient==2.0.2
