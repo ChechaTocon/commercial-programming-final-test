@@ -26,13 +26,15 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSliderModule} from '@angular/material/slider'; 
 import {MatStepperModule} from '@angular/material/stepper';
 import { GraphQLModule } from './graphql.module';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';
+import { CategoriaComponent } from './components/categoria/categoria.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CategoriaComponent
   ],
   imports: [
     BrowserModule,
