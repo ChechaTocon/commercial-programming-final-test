@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reviews.apps.ReviewsConfig',
     'graphene_django',
+    'corsheaders',
     # 'reviews'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,6 +56,7 @@ MIDDLEWARE = [
 ]
 
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'movies.urls'
 
