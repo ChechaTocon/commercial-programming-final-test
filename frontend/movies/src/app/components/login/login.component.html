@@ -17,7 +17,7 @@
               <div class="row margin">
                 <div class="col s12 m12 l12 center">
                     <img src="../../assets/login.svg"
-                    alt="" class="circle" style="width:45%;">                
+                    alt="" class="circle" style="width:40%;">                
                 </div>
             </div>          
               <h1 style="font-size: 35px">Inicio de sesión</h1>        
@@ -70,7 +70,12 @@
                 >
                   Ingresar
                   <i class="material-icons right">send</i>
-                </button>                             
+                </button>     
+                <br>
+                <br>
+                <div class="row center">
+                  <span>¿No tienes una cuenta?</span><a [routerLink]="['/register']" routerLinkActive="router-link-active" > Registrate aquí</a>
+                </div>                   
               </div>                  
             </div>          
           <div class="input-field col s1"></div>
