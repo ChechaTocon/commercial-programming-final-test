@@ -67,9 +67,84 @@ class CreateUser(graphene.Mutation):
         return CreateUser(user=user)
 
 
-#fin del espacio para el usuario    
+#fin del espacio para el usuario  
+
+# Inicio para la movie
+class MovieType(DjangoObjectType):
+    class Meta:
+        model = Movie
+
+class MovieNode(DjangoObjectType):
+    class Meta:
+        model = Movie
+        # Permite un filtrado mas avanzado
+        filter_fields = {
+            'poster': ['exact', 'icontains', 'istartswith'],
+            'movieName': ['exact', 'icontains'],
+            'description': ['exact', 'icontains'],
+            'createdAt': ['exact', 'icontains'],
+            'updatedAt': ['exact', 'icontains'],
+            'category': ['exact'],
+            'category__name': ['exact'],
+        }
+        interfaces = (relay.Node, )
+class CrearMovie(graphene.Mutation):
+    class Arguments:
+        poster= graphene.String()
+        movieName = graphene.String()
+        description= graphene.String()    
+        category = graphene.Int()
+
+    movie = graphene.Field(MovieNode)
+    def mutate(self, info, poster, movieName,  description, category):
+        objeto_categoria=Category.objects.get(id=category)
+        movie = Movie.objects.create(
+            poster= poster,
+            movieName = movieName,
+            description = description,       
+            category=objeto_categoria                             
+        )           
+
+        movie.save()
+        return CrearMovie(
+            movie=movie
+        )
+class UpdateMovie(graphene.Mutation):
+    class Arguments:
+        id = graphene.ID()
+        poster = graphene.String()
+        movieName = graphene.String()
+        description = graphene.String()
+        category = graphene.List(graphene.ID)
+    movie = graphene.Field(MovieType)
+
+    def mutate(self, info, id, poster=None, movieName=None, description= None, category=None):
+      movie = Movie.objects.get(pk=id)
+      movie.poster = poster if poster is not None else movie.poster
+      movie.movieName = movieName if movieName is not None else movie.movieName
+      movie.description = description if description is not None else movie.description
+
+      if category is not None:
+        category_set = []
+        for category_id in category:
+          category_object = Category.objects.get(pk=category_id)
+        movie.category = category_object
+
+
+      movie.save()
+
+      return UpdateMovie(movie=movie)
+
+# FIn del espacio para a movie
+ 
+ 
+ 
+   
 class Query(graphene.ObjectType):
-    category = graphene.List(CategoryType)    
+    category = graphene.List(CategoryType) 
+    movie = relay.Node.Field(MovieNode)
+    all_movies = DjangoFilterConnectionField(MovieNode)
+
     users = graphene.List(UserType)
     me = graphene.Field(UserType)
 
@@ -91,4 +166,6 @@ class Query(graphene.ObjectType):
 class Mutation(graphene.ObjectType):
     create_category = CreateCategory.Field()
     create_user = CreateUser.Field()
+    create_movie = CrearMovie.Field()
+    update_movie = UpdateMovie.Field()
 # fin de mutations
