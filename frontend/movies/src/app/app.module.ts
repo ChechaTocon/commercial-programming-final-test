@@ -29,7 +29,7 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaComponent } from './components/categoria/categoria.component';
 import { CreateCategoryComponent } from './components/categoria/create-category/create-category.component';
-
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,8 +64,9 @@ import { CreateCategoryComponent } from './components/categoria/create-category/
     MatTableModule,
     GraphQLModule,
     HttpClientModule,
+    NgxMatColorPickerModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

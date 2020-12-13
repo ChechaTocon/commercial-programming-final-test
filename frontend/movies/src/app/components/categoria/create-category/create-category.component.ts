@@ -10,10 +10,14 @@ import { Category } from '../../../models/category.model'
 })
 export class CreateCategoryComponent implements OnInit {
   name: string = ''
-  color: string = ''
+  color: any
   idCategory: any
   category: Category | undefined
   title: string = ''
+
+  //ColorPicker 
+  disabled: boolean = false
+  touchUi: boolean = false
 
   constructor(
     private _route: ActivatedRoute,
