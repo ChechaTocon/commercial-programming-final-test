@@ -7,3 +7,16 @@
     background-size: cover;
   }
   
+
+  mat-card img{
+    min-height: 260px;
+    max-height: 260px;
+    }
+
+  mat-card-content {
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+    }

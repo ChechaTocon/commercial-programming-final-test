@@ -28,6 +28,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaComponent } from './components/categoria/categoria.component';
+import { MovieComponent } from './components/movie/movie.component';
+import { CreatedMovieComponent } from './components/movie/created-movie/created-movie.component';
 import { ListReviewComponent } from './components/review/list-review/list-review.component';
 import { AddReviewComponent } from './components/review/add-review/add-review.component';
 
@@ -39,6 +41,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     LoginComponent,
     RegisterComponent,
     CategoriaComponent,
+    MovieComponent,
+    CreatedMovieComponent
     ListReviewComponent,
     AddReviewComponent,
     CreateCategoryComponent

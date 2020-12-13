@@ -5,32 +5,41 @@
    <br>
    <br>
    
-<div style="background-color: #2b2e4a; height: 100%">
+<div style="background-color: #2b2e4a; height: 1000%">
     <br>
     <div class="container center-align">  
     <h1 style="font-size: 35px; color: #ffffff;">MOVIES</h1>      
-    </div>
-    <div class="container">
-        <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="example-header-image"></div>
-              <mat-card-title>Shiba Inu</mat-card-title>
-              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-              <p>
-                The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                bred for hunting.
-              </p>
-            </mat-card-content>
-            <mat-card-actions>
-              <button mat-button>LIKE</button>
-              <button mat-button>SHARE</button>
-            </mat-card-actions>
-          </mat-card>
+    <h1 style="font-size: 20px; color: #e6acee;">Agregar nueva pelicula</h1>      
+    <button mat-fab color="primary"[routerLink]="['movies/create']" aria-label="Agregar nueva pelicula">
+      <mat-icon>plus_one</mat-icon>
+    </button>
+    
+    <br>
+    <br>
     </div>
   
+    <div class="container">
+      <div class="row">
+       
+        <div *ngFor="let card of dataSource">
+          <div class="col s3">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <h2>{{card.node.movieName}}</h2>
+            </mat-card-header>
+            <img mat-card-image src="{{card.node.poster}}">
+            <mat-card-content>
+              <h3 class="overflow">
+                {{card.node.description}}
+              </h3>
+            </mat-card-content>
+            <mat-card-actions> 
+              <button mat-raised-button color="primary">VER RESENA</button>
+            </mat-card-actions>
+          </mat-card>
+          <br>
+      </div>
+    </div>
+    </div>
 </div>
 
