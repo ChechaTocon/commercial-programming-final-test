@@ -11,9 +11,9 @@ class CategoryType(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    Category = graphene.List(CategoryType)
+    category = graphene.List(CategoryType)
 
-    def resolve_juegos(self, info, **kwargs):
+    def resolve_category(self, info, **kwargs):
         return Category.objects.all()
 
 # Fin de querys
@@ -31,7 +31,7 @@ class CreateCategory(graphene.Mutation):
         input = CategoryInput(required=True)
 
     ok = graphene.Boolean()
-    Category = graphene.Field(CategoryInput)
+    category = graphene.Field(CategoryType)
 
     @staticmethod
     def mutate(root, info, input=None):
