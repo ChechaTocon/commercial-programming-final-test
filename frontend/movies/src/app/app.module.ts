@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
+import {MatTableModule} from '@angular/material/table'
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
@@ -27,13 +28,15 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaComponent } from './components/categoria/categoria.component';
+import { CreateCategoryComponent } from './components/categoria/create-category/create-category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    CreateCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { CategoriaComponent } from './components/categoria/categoria.component';
     MatSlideToggleModule,
     MatSliderModule,
     MatStepperModule,
+    MatTableModule,
     GraphQLModule,
     HttpClientModule,
   ],

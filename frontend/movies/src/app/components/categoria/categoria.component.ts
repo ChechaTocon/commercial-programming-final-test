@@ -22,8 +22,9 @@ const categoryQuery = gql`
   styleUrls: ['./categoria.component.css']
 })
 export class CategoriaComponent implements OnInit {
-  dataSource: Category[] | undefined
+  dataSource: Category[] = []
   private querySubscription: Subscription | undefined;
+  displayedColumns: string[] = ['name', 'options'];
 
   constructor(private apollo: Apollo) { }
 
@@ -34,7 +35,6 @@ export class CategoriaComponent implements OnInit {
       .valueChanges
       .subscribe(({ data }) => {
         this.dataSource = data.category;
-        console.log(this.dataSource)
       });
   }
 
