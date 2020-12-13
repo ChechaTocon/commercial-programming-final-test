@@ -77,6 +77,9 @@ class Query(graphene.ObjectType):
         return get_user_model().objects.all()
 
     def resolve_category(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception('Not logged in!')        
         return Category.objects.all()
     
     def resolve_me(self, info):
