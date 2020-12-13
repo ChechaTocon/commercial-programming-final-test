@@ -37,9 +37,6 @@ class CreateCategory(graphene.Mutation):
         return CreateCategory(ok=ok, category=category_instance)
 
 #Espacio para usuario
-import graphene
-from graphene_django import DjangoObjectType
-
 
 class UserType(DjangoObjectType):
     class Meta:
@@ -48,16 +45,21 @@ class UserType(DjangoObjectType):
 
 class CreateUser(graphene.Mutation):
     user = graphene.Field(UserType)
+    
 
     class Arguments:
         username = graphene.String(required=True)
         password = graphene.String(required=True)
         email = graphene.String(required=True)
+        first_name = graphene.String(required=True)
+        last_name = graphene.String(required=True)        
 
-    def mutate(self, info, username, password, email):
+    def mutate(self, info, username, password, email, first_name, last_name):
         user = get_user_model()(
             username=username,
             email=email,
+            first_name=first_name,
+            last_name=last_name
         )
         user.set_password(password)
         user.save()
@@ -68,9 +70,20 @@ class CreateUser(graphene.Mutation):
 #fin del espacio para el usuario    
 class Query(graphene.ObjectType):
     category = graphene.List(CategoryType)    
+    users = graphene.List(UserType)
+    me = graphene.Field(UserType)
+
+    def resolve_users(self, info):
+        return get_user_model().objects.all()
 
     def resolve_category(self, info, **kwargs):
         return Category.objects.all()
+    
+    def resolve_me(self, info):
+        user = info.context.user
+        if user.is_anonymous:
+            raise Exception('Not logged in!')
+        return user
 #fin de las querys
 class Mutation(graphene.ObjectType):
     create_category = CreateCategory.Field()
