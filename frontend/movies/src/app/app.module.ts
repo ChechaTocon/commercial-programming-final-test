@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/register/register.component';
+import {MatTableModule} from '@angular/material/table'
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card'; 
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
@@ -30,6 +31,8 @@ import { CategoriaComponent } from './components/categoria/categoria.component';
 import { ListReviewComponent } from './components/review/list-review/list-review.component';
 import { AddReviewComponent } from './components/review/add-review/add-review.component';
 
+import { CreateCategoryComponent } from './components/categoria/create-category/create-category.component';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +41,7 @@ import { AddReviewComponent } from './components/review/add-review/add-review.co
     CategoriaComponent,
     ListReviewComponent,
     AddReviewComponent,
+    CreateCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -62,10 +66,12 @@ import { AddReviewComponent } from './components/review/add-review/add-review.co
     MatSlideToggleModule,
     MatSliderModule,
     MatStepperModule,
+    MatTableModule,
     GraphQLModule,
     HttpClientModule,
+    NgxMatColorPickerModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
