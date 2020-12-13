@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reviews'
+    'reviews.apps.ReviewsConfig',
+    'graphene_django',
+    # 'reviews'
 ]
 
 MIDDLEWARE = [
@@ -77,11 +79,11 @@ WSGI_APPLICATION = 'movies.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'FinalPrograDB',
+        'NAME': 'FinalPrograDB',
         'USER': 'root',
         'PASSWORD': 'bow7NDyFbyFvG0ju',
-        'HOST':'34.75.119.133',
-        'PORT':'3306'
+        'HOST': '34.75.119.133',
+        'PORT': '3306'
     }
 }
 
@@ -123,3 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GRAPHENE = {
+    'SCHEMA': 'movies.schema.schema'
+}
