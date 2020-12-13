@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.conf import settings
 
 #Modelo para categoria
 class Category(models.Model):
@@ -32,18 +34,6 @@ class Movie(models.Model):
 
         return self.movieName
 
-#modelo para el usuario
-class User(models.Model):
-    username = models.CharField(max_length=20)
-    password = models.TextField()
-    name = models.CharField(max_length=25)
-    surname = models.CharField(max_length=25)
-    role = models.BooleanField()
-    createdAt = models.DateField(blank=True, null=True)
-    updatedAt = models.DateField(blank=True, null=True)
-    def __str__(self):
-
-        return self.username
 
 #Modelo para la rese;a
 class Review(models.Model):
@@ -57,10 +47,7 @@ class Review(models.Model):
 
         Movie, related_name="movies", on_delete=models.CASCADE
     )
-    user = models.ForeignKey(
-
-        User, related_name="users", on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)    
 
     def __str__(self):
 
