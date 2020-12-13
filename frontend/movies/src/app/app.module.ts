@@ -27,13 +27,17 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaComponent } from './components/categoria/categoria.component';
+import { MovieComponent } from './components/movie/movie.component';
+import { CreatedMovieComponent } from './components/movie/created-movie/created-movie.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    MovieComponent,
+    CreatedMovieComponent
   ],
   imports: [
     BrowserModule,
