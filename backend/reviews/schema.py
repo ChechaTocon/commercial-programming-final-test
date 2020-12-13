@@ -5,6 +5,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphene_django import DjangoObjectType
 from django.contrib.auth import get_user_model
 from .models import Category, Movie, Review, User
+from django.utils import timezone
 
 # Querys
 class CategoryType(DjangoObjectType):
@@ -137,6 +138,88 @@ class UpdateMovie(graphene.Mutation):
 
 # FIn del espacio para a movie
  
+
+ #INICIO DE REVIEW
+class ReviewType(DjangoObjectType):
+    class Meta:
+        model = Review
+
+class ReviewInput(graphene.InputObjectType):
+    id = graphene.ID()
+    comment = graphene.String()
+    ranking = graphene.Int()
+    movie = graphene.Int()
+    user = graphene.Int()
+
+class CreateReview(graphene.Mutation):
+    class Arguments:
+        input = ReviewInput(required=True)
+
+    ok = graphene.Boolean()
+    review = graphene.Field(ReviewType)
+
+    @staticmethod
+    def mutate(root, info, input=None):
+        ok = True
+        user_obj = User.objects.get(id=input.user)
+        movie_obj = Movie.objects.get(id=input.user)
+        review_instance = Review(
+          comment=input.comment,
+          ranking=input.ranking,
+          createdAt=timezone.now(),
+          updatedAt= timezone.now(),
+          movie=movie_obj,
+          user=user_obj
+          )
+        review_instance.save()
+        return CreateReview(ok=ok, review=review_instance)
+
+
+class UpdateReview(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int(required=True)
+        input = ReviewInput(required=True)
+
+    ok = graphene.Boolean()
+    review = graphene.Field(ReviewType)
+
+    @staticmethod
+    def mutate(root, info, id, input=None):
+        ok = False
+        review_instance = Review.objects.get(pk=id)
+        if review_instance:
+            ok = True           
+            user_obj = User.objects.get(id=input.user)
+            movie_obj = Movie.objects.get(id=input.user)
+
+            review_instance.comment=input.comment
+            review_instance.ranking=input.ranking
+            review_instance.updatedAt=timezone.now()
+            review_instance.movie=movie_obj
+            review_instance.user=user_obj
+
+            review_instance.save()            
+            return UpdateReview(ok=ok, review=review_instance)
+        return UpdateReview(ok=ok, review=None)
+
+class FindReview(graphene.Mutation):
+    class Arguments:
+        movie_id = graphene.Int(required=True)        
+
+    ok = graphene.Boolean()
+    review = graphene.Field(ReviewType)
+
+    @staticmethod
+    def mutate(root, info, movie_id):
+        ok = False        
+        review_instance = Review.objects.get(movie=movie_id)
+        if review_instance:
+            ok = True                       
+                
+            return FindReview(ok=ok, review=review_instance)
+        return FindReview(ok=ok, review=None)
+
+#FIN DE REVIEW
  
  
    
@@ -147,6 +230,9 @@ class Query(graphene.ObjectType):
 
     users = graphene.List(UserType)
     me = graphene.Field(UserType)
+
+    review = graphene.Field(ReviewType, id=graphene.Int(), movie_id=graphene.Int())     
+    reviews = graphene.List(ReviewType)
 
     def resolve_users(self, info):
         return get_user_model().objects.all()
@@ -162,10 +248,25 @@ class Query(graphene.ObjectType):
         if user.is_anonymous:
             raise Exception('Not logged in!')
         return user
+    
+    def resolve_review(self, info, **kwargs):
+        id = kwargs.get('id')
+
+        if id is not None:
+            return Review.objects.get(pk=id)
+
+        return None    
+    
+    
+    def resolve_reviews(self, info, **kwargs):
+        return Review.objects.all()
 #fin de las querys
 class Mutation(graphene.ObjectType):
     create_category = CreateCategory.Field()
     create_user = CreateUser.Field()
     create_movie = CrearMovie.Field()
     update_movie = UpdateMovie.Field()
+    create_review = CreateReview.Field()
+    update_review = UpdateReview.Field()
+    find_review = FindReview.Field()
 # fin de mutations

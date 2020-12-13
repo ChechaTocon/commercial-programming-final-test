@@ -27,13 +27,17 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaComponent } from './components/categoria/categoria.component';
+import { ListReviewComponent } from './components/review/list-review/list-review.component';
+import { AddReviewComponent } from './components/review/add-review/add-review.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    ListReviewComponent,
+    AddReviewComponent,
   ],
   imports: [
     BrowserModule,
