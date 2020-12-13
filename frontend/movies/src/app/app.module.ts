@@ -32,6 +32,7 @@ import { MovieComponent } from './components/movie/movie.component';
 import { CreatedMovieComponent } from './components/movie/created-movie/created-movie.component';
 import { ListReviewComponent } from './components/review/list-review/list-review.component';
 import { AddReviewComponent } from './components/review/add-review/add-review.component';
+import { ItemReviewComponent } from './components/review/item-review/item-review.component';
 
 import { CreateCategoryComponent } from './components/categoria/create-category/create-category.component';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
@@ -42,10 +43,11 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     RegisterComponent,
     CategoriaComponent,
     MovieComponent,
-    CreatedMovieComponent
+    CreatedMovieComponent,
     ListReviewComponent,
     AddReviewComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    ItemReviewComponent,
   ],
   imports: [
     BrowserModule,
